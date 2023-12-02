@@ -86,7 +86,7 @@ public class Login extends javax.swing.JFrame {
                 telaHome.dispose();
                 telaHome = new Home(usuarioAutenticado);
                 telaHome.setVisible(true);
-                telaHome.jButton4.setVisible(true);
+                telaHome.sairBut.setVisible(true);
                 
                 this.dispose();
             } else {

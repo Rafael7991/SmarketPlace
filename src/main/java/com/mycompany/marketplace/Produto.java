@@ -11,10 +11,17 @@ package com.mycompany.marketplace;
 public class Produto {
     
     private int id;
-    private String nome;
+    public String nome;
     private String descricao;
     private int estoque;
-    private Float preco; 
+    private Double preco; 
+
+    public Produto(String nome, Double preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+    
+    
     
     public int getId() {
         return id;
@@ -48,11 +55,11 @@ public class Produto {
         this.estoque = estoque;
     }
 
-    public Float getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(Float preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }
