@@ -9,9 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+//import javax.swing.JPanel;
 
 public class Home extends JFrame {
 
@@ -28,7 +27,7 @@ public class Home extends JFrame {
         setLocationRelativeTo(null);
         verificaPrivilegios();
         sairBut.setVisible(false);
-        System.out.println(priv);
+        System.out.println("verirficação priv ao criar obj Home:" + priv);
     }
 
     public Home(Usuario usuario) {
@@ -42,10 +41,10 @@ public class Home extends JFrame {
         verificaPrivilegios();
         System.out.println(usuario.getPriv());
         atualizarBemVindo(usuario);
+        System.out.println("verirficação priv ao criar obj Home:" + priv);
     }
 
     class JPanelGradient extends JPanel {
-
         protected void paintComponent(Graphics g) {
             Graphics2D gd2 = (Graphics2D) g;
             int width = getWidth();
@@ -55,7 +54,6 @@ public class Home extends JFrame {
             GradientPaint gp = new GradientPaint(0, 0, color1, 180, height, color2);
             gd2.setPaint(gp);
             gd2.fillRect(0, 0, 846, 457);
-
         }
     }
 
@@ -78,6 +76,16 @@ public class Home extends JFrame {
         }
 
         return produtos;
+    }
+    
+    public void verificaCarrinho(Pedido pedido){
+        if(pedido.Carrinho.size() > 0){
+            jButton13.setEnabled(true);
+        }
+    }
+
+    public int getPriv() {
+        return priv;
     }
 
     @SuppressWarnings("unchecked")
@@ -105,6 +113,7 @@ public class Home extends JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -283,6 +292,9 @@ public class Home extends JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/carrinho.png"))); // NOI18N
+        jButton13.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,49 +306,48 @@ public class Home extends JFrame {
                         .addComponent(jLabel1)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sairBut)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lupaBut, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
+                        .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(logBut)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cadBut)
-                        .addGap(0, 979, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1)
-                                .addGap(3, 3, 3)))
-                        .addComponent(lupaBut, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(sairBut))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lupaBut, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sairBut)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logBut)
-                    .addComponent(cadBut))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(logBut)
+                        .addComponent(cadBut))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1182, 584));
@@ -364,63 +375,88 @@ public class Home extends JFrame {
     }//GEN-LAST:event_lupaButActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(0).getNome(), produtos.get(0).getPreco());
+        //ProdVenda prod1 = new ProdVenda(produtos.get(0).getNome(), produtos.get(0).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(0));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(1).getNome(), produtos.get(1).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(1));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(2).getNome(), produtos.get(2).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(2));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(3).getNome(), produtos.get(3).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(3));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(4).getNome(), produtos.get(4).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(4));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(5).getNome(), produtos.get(5).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(5));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(6).getNome(), produtos.get(6).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(6));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(7).getNome(), produtos.get(7).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(7));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(8).getNome(), produtos.get(8).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(8));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(9).getNome(), produtos.get(9).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(9));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        ProdVenda prod1 = new ProdVenda(produtos.get(10).getNome(), produtos.get(10).getPreco());
+        ProdVenda prod1 = new ProdVenda(produtos.get(10));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-      ProdVenda prod1 = new ProdVenda(produtos.get(11).getNome(),produtos.get(11).getPreco());
-       prod1.setVisible(true);
+        ProdVenda prod1 = new ProdVenda(produtos.get(11));
+        prod1.setHome(this);
+        prod1.setUsuario(usuario);
+        prod1.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     public void atualizarBemVindo(Usuario usuario) {
@@ -434,7 +470,7 @@ public class Home extends JFrame {
 
     private void verificaPrivilegios() {
         if (usuario == null) {
-            priv = 2;
+            priv = 3;
         } else {
             priv = usuario.getPriv();
         }
@@ -481,6 +517,7 @@ public class Home extends JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

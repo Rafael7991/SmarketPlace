@@ -12,6 +12,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         telaHome = home;
         appManager = AppManager.getInstance();
+        System.out.println(home.getPriv());
     }
 
     /*public Login() {

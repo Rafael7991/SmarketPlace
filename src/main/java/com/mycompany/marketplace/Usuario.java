@@ -7,8 +7,10 @@ public class Usuario {
     private String nome;
     private String userName;
     private String senha;
+    private String endereco;
     public int priv;
 
+    
     public Usuario(String userName, String senha) {
         this.userName = userName;
         this.senha = senha;
@@ -54,5 +56,12 @@ public class Usuario {
         this.priv = priv;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
 }

@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.marketplace;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import jdk.jfr.Timestamp;
 
 /**
  *
@@ -13,41 +10,22 @@ import jdk.jfr.Timestamp;
  */
 public class Pedido {
 
-    private int id;
-    private int idCliente;
-    private List itens;
-    private Timestamp data;
+    private Usuario usuario;
+    protected List<Produto> Carrinho;
+    private LocalDateTime data;
     private Float valor;
-    
-    public int getId() {
-        return id;
+
+    public Pedido(Usuario usuario, LocalDateTime data) {
+        Carrinho = new ArrayList<>();
+        this.usuario = usuario;
+        this.data = data;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public List getItens() {
-        return itens;
-    }
-
-    public void setItens(List itens) {
-        this.itens = itens;
-    }
-
-    public Timestamp getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

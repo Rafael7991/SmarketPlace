@@ -4,24 +4,28 @@
  */
 package com.mycompany.marketplace;
 
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author lopes
  */
 public class ProdVenda extends javax.swing.JFrame {
 
-    String nome;
-    Double preco;
+    Produto produto;
+    Usuario usuario;
+    Home home;
 
-    public ProdVenda(String nome, Double preco) {
-       
+    public ProdVenda(Produto produto) {
         initComponents();
-        this.nome = nome;
-        this.preco = preco; 
-        jLabel1.setText(nome);
-        jLabel2.setText(String.format("%.2f", preco));
+        jLabel1.setText(produto.getNome());
+        jLabel2.setText(String.format("%.2f", produto.getPreco()));
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -32,8 +36,6 @@ public class ProdVenda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setText(nome);
 
         jButton1.setText("COMPRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -74,17 +76,67 @@ public class ProdVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(nome);
-        
+        Object[] options = {"CADASTRAR", "JA POSSUO CADASTRO", "Sair"};
+        if (usuario == null) {
+            int result = JOptionPane.showOptionDialog(null, "Por favor, realize seu cadastro!", "Usuario não Cadastrado", JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, // ícone (use 'null' para nenhum ícone)
+                    options, // array de opções de botão
+                    options[1]);
+            if (result == 0) {
+                if (usuario != null) {
+                    Cadastro telaCadastro = new Cadastro(usuario.getPriv());
+                    telaCadastro.setVisible(true);
+                } else {
+                    Cadastro telaCadastro = new Cadastro(3);
+                    telaCadastro.setVisible(true);
+                }
+                dispose();
+            } else if (result == 1) {
+                Login telaLogin = new Login(home);
+                telaLogin.setVisible(true);
+                dispose();
+            }
+
+        } else if (usuario.getPriv() == 2) {
+            UIManager.put("OptionPane.yesButtonText", "Dados CORRETOS");
+            UIManager.put("OptionPane.noButtonText", "Preciso ALTERAR");
+            StringBuilder mensagem = new StringBuilder();
+            mensagem.append("Nome: ").append(usuario.getNome()).append("\n");
+            mensagem.append("Endereço: ").append(usuario.getEndereco()).append("\n");
+
+            int opcao = JOptionPane.showConfirmDialog(null, mensagem.toString(), "Confirmação de Dados", JOptionPane.YES_NO_OPTION);
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                Pedido pedido = new Pedido(usuario,LocalDateTime.now());
+                pedido.Carrinho.add(produto);
+                home.verificaCarrinho(pedido);
+                JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
+            }
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public void main(String args[]) {
-        
-        
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdVenda(nome,  preco).setVisible(true);
+                new ProdVenda(produto).setVisible(true);
             }
         });
     }
