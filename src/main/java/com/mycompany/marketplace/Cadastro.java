@@ -9,12 +9,12 @@ public class Cadastro extends javax.swing.JFrame {
     
     static int priv;
     private AppManager appManager;
+    Usuario usuario;
     
     public Cadastro(int priv) {
         initComponents();
         appManager = AppManager.getInstance();
         List<Usuario> usuarios = appManager.getUsuarios();
-        System.out.println(priv);
         this.priv = priv;
         if(priv == 0){
             jLabel4.setText("Cadastrando Empresa");
@@ -22,17 +22,14 @@ public class Cadastro extends javax.swing.JFrame {
             jLabel4.setText("Cadastrando Cliente");
         }
     }
-    
-    /*public Cadastro() {
-        initComponents();
-        System.out.println(priv);
-        this.priv = priv;
-        if(priv == 0){
-            jLabel4.setText("Cadastrando Empresa");
-        } else {
-            jLabel4.setText("Cadastrando Cliente");
-        }
-    }*/
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -158,7 +155,7 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Carlito", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(47, 28, 15));
         jLabel4.setText("jLabel4");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 216, 32));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 216, 32));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,11 +174,12 @@ public class Cadastro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String regex = "^[A-Za-z\\s]+,\\s*\\d+$";
         Pattern pattern = Pattern.compile(regex);
+        Matcher matcher;
         if(priv == 0){
             if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty()){
                 Filiada filiada = new Filiada(jTextField2.getText(), jTextField3.getText());
                 filiada.setNome(jTextField1.getText());
-                Matcher matcher = pattern.matcher(jTextField4.getText());
+                matcher = pattern.matcher(jTextField4.getText());
                 if(matcher.matches()){
                     filiada.setEndereco(jTextField4.getText());
                     appManager.adicionarUsuario(filiada);
@@ -198,10 +196,26 @@ public class Cadastro extends javax.swing.JFrame {
             if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty()){
                 Cliente cliente = new Cliente(jTextField2.getText(), jTextField3.getText());
                 cliente.setNome(jTextField1.getText());
-                Matcher matcher = pattern.matcher(jTextField4.getText());
+                matcher = pattern.matcher(jTextField4.getText());
                 if(matcher.matches()){
                     cliente.setEndereco(jTextField4.getText());
                     appManager.adicionarUsuario(cliente);
+                    JOptionPane.showMessageDialog(this, "Cadastro Realizado com Sucesso!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Endereço inválido! Use o formato: nome da rua, número");
+                }
+            }
+        }else if(priv == 2){
+            if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty()){
+                //Cliente cliente = new Cliente(jTextField2.getText(), jTextField3.getText());
+                usuario.setNome(jTextField1.getText());
+                matcher = pattern.matcher(jTextField4.getText());
+                if(matcher.matches()){
+                    usuario.setEndereco(jTextField4.getText());
+                    usuario.setUserName(jTextField2.getText());
+                    usuario.setSenha(jTextField3.getText());
+                    appManager.adicionarUsuario(usuario);
                     JOptionPane.showMessageDialog(this, "Cadastro Realizado com Sucesso!");
                     dispose();
                 } else {

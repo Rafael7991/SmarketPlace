@@ -23,8 +23,10 @@ public class ProdVenda extends javax.swing.JFrame {
 
     public ProdVenda(Produto produto) {
         initComponents();
+        //jButton1.setEnabled(false);
         jLabel1.setText(produto.getNome());
         jLabel2.setText(String.format("%.2f", produto.getPreco()));
+ 
     }
 
     @SuppressWarnings("unchecked")
@@ -77,6 +79,7 @@ public class ProdVenda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Object[] options = {"CADASTRAR", "JA POSSUO CADASTRO", "Sair"};
+        
         if (usuario == null) {
             int result = JOptionPane.showOptionDialog(null, "Por favor, realize seu cadastro!", "Usuario não Cadastrado", JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -113,8 +116,13 @@ public class ProdVenda extends javax.swing.JFrame {
                 home.verificaCarrinho(pedido);
                 JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
                 this.dispose();
+            } else if(opcao == JOptionPane.NO_OPTION){
+                Cadastro telaCadastro = new Cadastro(2);
+                telaCadastro.setVisible(true);
+                telaCadastro.setUsuario(usuario);
+                //JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
             } else {
-                JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
+                dispose();
             }
 
         }
