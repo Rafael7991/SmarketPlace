@@ -12,7 +12,5 @@ public class Filiada extends Usuario{
         this.priv = 1;
         
     }
-    
-    
 
 }

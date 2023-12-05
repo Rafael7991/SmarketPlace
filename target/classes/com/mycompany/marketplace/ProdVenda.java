@@ -112,6 +112,7 @@ public class ProdVenda extends javax.swing.JFrame {
                 pedido.Carrinho.add(produto);
                 home.verificaCarrinho(pedido);
                 JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
             }
