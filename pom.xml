@@ -29,16 +29,11 @@
     <dependencies>
 
         <dependency>
-<<<<<<< HEAD
-        <groupId>org.netbeans.external</groupId>
-        <artifactId>AbsoluteLayout</artifactId>
-        <version>RELEASE150</version>
-    </dependency>
-=======
+
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE150</version>
         </dependency>
->>>>>>> 040ad27c438d1991ac5df348613f2e05b2e9920e
+
     </dependencies>
 </project>
