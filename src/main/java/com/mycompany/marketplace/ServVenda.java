@@ -13,29 +13,19 @@ import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author lopes
+ * @author iagom
  */
-public class ProdVenda extends javax.swing.JFrame {
+public class ServVenda extends javax.swing.JFrame {
 
-    Produto produto;
+    Servico servico;
     Usuario usuario;
-    Home home;
-    Pedido pedido;
+    TelaServico telaServ;
 
-    public ProdVenda(Produto produto, Home home) {
+    public ServVenda(Servico servico) {
         initComponents();
-        //jButton1.setEnabled(false);
-        this.produto = produto;
-        this.home = home;
-        if (home.getLista() == null) {
-            pedido = new Pedido(usuario, LocalDateTime.now());
-            
-        }
-        jLabel1.setText(produto.getNome());
-        jLabel2.setText(String.format("%.2f", produto.getPreco()));
-
+        jLabel1.setText(servico.getNome());
+        jLabel2.setText(String.format("%.2f", servico.getPreco()));
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,7 +35,7 @@ public class ProdVenda extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("COMPRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -68,14 +58,14 @@ public class ProdVenda extends javax.swing.JFrame {
                         .addGap(174, 174, 174)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -87,7 +77,6 @@ public class ProdVenda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Object[] options = {"CADASTRAR", "JA POSSUO CADASTRO", "Sair"};
-
         if (usuario == null) {
             int result = JOptionPane.showOptionDialog(null, "Por favor, realize seu cadastro!", "Usuario não Cadastrado", JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -104,8 +93,8 @@ public class ProdVenda extends javax.swing.JFrame {
                 }
                 dispose();
             } else if (result == 1) {
-                Login telaLogin = new Login(home);
-                telaLogin.setVisible(true);
+                //Login telaLogin = new Login(telaServ);
+                //telaLogin.setVisible(true);
                 dispose();
             }
 
@@ -119,33 +108,20 @@ public class ProdVenda extends javax.swing.JFrame {
             int opcao = JOptionPane.showConfirmDialog(null, mensagem.toString(), "Confirmação de Dados", JOptionPane.YES_NO_OPTION);
 
             if (opcao == JOptionPane.YES_OPTION) {
-
-               // pedido.Carrinho.add(produto);
-                home.getLista().add(produto);
-                home.verificaCarrinho(pedido);
-                for(Produto a : home.getLista()){
-                     System.out.println("produto: " + a.getNome());
-                }
-               
-                //JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
+                Pedido pedido = new Pedido(usuario, LocalDateTime.now());
+                //pedido.CarrinhoServ.add(servico);
+                //telaServ.verificaCarrinho(pedido);
+                JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
                 this.dispose();
-            } else if (opcao == JOptionPane.NO_OPTION) {
-                Cadastro telaCadastro = new Cadastro(2);
-                telaCadastro.setVisible(true);
-                telaCadastro.setUsuario(usuario);
             } else {
-
-                dispose();
+                JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Favor, realizar cadastro como Cliente");
-            dispose();
-        }
 
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void setHome(Home home) {
-        this.home = home;
+    public void setHome(TelaServico telaServ) {
+        this.telaServ = telaServ;
     }
 
     public Usuario getUsuario() {
@@ -156,11 +132,11 @@ public class ProdVenda extends javax.swing.JFrame {
         this.usuario = usuario;
     }
 
-    public void main(String args[]) {
+    public  void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdVenda(produto, home).setVisible(true);
+                new ServVenda(servico).setVisible(true);
             }
         });
     }

@@ -1,26 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.marketplace;
 
-/**
- *
- * @author iagom
- */
 public class Servico {
-  
-    private int id;
-    private String nome;
-    private String descricao;
+
+    public String nome;
+    private Double preco;
+    protected Usuario usuario;
+    protected boolean status;
     
-    public int getId() {
-        return id;
+    public Servico (String nome, Double preco, Usuario usuario){
+        this.setNome(nome);
+        this.setPreco(preco);
+        this.usuario = usuario;
+        status = false;
+    }
+    
+
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
+   
 
     public String getNome() {
         return nome;
@@ -30,12 +32,8 @@ public class Servico {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     

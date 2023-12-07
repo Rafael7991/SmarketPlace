@@ -20,14 +20,22 @@ public class ProdVenda extends javax.swing.JFrame {
     Produto produto;
     Usuario usuario;
     Home home;
+    Pedido pedido;
 
-    public ProdVenda(Produto produto) {
+    public ProdVenda(Produto produto, Home home) {
         initComponents();
         //jButton1.setEnabled(false);
+        this.produto = produto;
+        this.home = home;
+        if (home.getLista() == null) {
+            pedido = new Pedido(usuario, LocalDateTime.now());
+            
+        }
         jLabel1.setText(produto.getNome());
         jLabel2.setText(String.format("%.2f", produto.getPreco()));
- 
+
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,7 +87,7 @@ public class ProdVenda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Object[] options = {"CADASTRAR", "JA POSSUO CADASTRO", "Sair"};
-        
+
         if (usuario == null) {
             int result = JOptionPane.showOptionDialog(null, "Por favor, realize seu cadastro!", "Usuario não Cadastrado", JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -111,20 +119,27 @@ public class ProdVenda extends javax.swing.JFrame {
             int opcao = JOptionPane.showConfirmDialog(null, mensagem.toString(), "Confirmação de Dados", JOptionPane.YES_NO_OPTION);
 
             if (opcao == JOptionPane.YES_OPTION) {
-                Pedido pedido = new Pedido(usuario,LocalDateTime.now());
-                pedido.Carrinho.add(produto);
+
+               // pedido.Carrinho.add(produto);
+                home.getLista().add(produto);
                 home.verificaCarrinho(pedido);
-                JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
+                for(Produto a : home.getLista()){
+                     System.out.println("produto: " + a.getNome());
+                }
+               
+                //JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
                 this.dispose();
-            } else if(opcao == JOptionPane.NO_OPTION){
+            } else if (opcao == JOptionPane.NO_OPTION) {
                 Cadastro telaCadastro = new Cadastro(2);
                 telaCadastro.setVisible(true);
                 telaCadastro.setUsuario(usuario);
-                //JOptionPane.showMessageDialog(null, "Os dados foram rejeitados. Faça as correções necessárias.");
             } else {
+
                 dispose();
             }
-
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, realizar cadastro como Cliente");
+            dispose();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -145,7 +160,7 @@ public class ProdVenda extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdVenda(produto).setVisible(true);
+                new ProdVenda(produto, home).setVisible(true);
             }
         });
     }

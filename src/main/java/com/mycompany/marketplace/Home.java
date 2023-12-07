@@ -7,10 +7,11 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import javax.swing.*;
-//import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 public class Home extends JFrame {
 
@@ -18,6 +19,8 @@ public class Home extends JFrame {
     Usuario usuario;
     static List<Produto> produtos;
     static List<Produto> results;
+    static List<Produto> Lista;
+    static List<Servico> servico;
     boolean busca;
 
     public Home() {
@@ -41,25 +44,13 @@ public class Home extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         verificaPrivilegios();
-        System.out.println(usuario.getPriv());
+        servico = new ArrayList<>();
         atualizarBemVindo(usuario);
         logBut.setVisible(false);
+        Lista = new ArrayList<Produto>();
         System.out.println("verirficação priv ao criar obj Home:" + priv);
     }
 
-    class JPanelGradient extends JPanel {
-
-        protected void paintComponent(Graphics g) {
-            Graphics2D gd2 = (Graphics2D) g;
-            int width = getWidth();
-            int height = getHeight();
-            Color color1 = new Color(218, 165, 32);
-            Color color2 = new Color(219, 112, 147);
-            GradientPaint gp = new GradientPaint(0, 0, color1, 180, height, color2);
-            gd2.setPaint(gp);
-            gd2.fillRect(0, 0, 846, 457);
-        }
-    }
 
     private static List<Produto> gerarProdutosAleatorios(int quantidade) {
         List<Produto> produtos = new ArrayList<>();
@@ -83,13 +74,27 @@ public class Home extends JFrame {
     }
 
     public void verificaCarrinho(Pedido pedido) {
-        if (pedido.Carrinho.size() > 0) {
-            carriBut.setEnabled(true);
+       if (Lista.size() > 0) {
+           carriBut.setEnabled(true);
         }
+
     }
 
+    public List<Produto> getLista() {
+        return Lista;
+    }
+
+    public static void setLista(List<Produto> Lista) {
+        Home.Lista = Lista;
+    }
+    
+    
     public int getPriv() {
         return priv;
+    }
+
+    public List<Servico> getServico() {
+        return servico;
     }
 
     @SuppressWarnings("unchecked")
@@ -102,6 +107,7 @@ public class Home extends JFrame {
         cadBut = new javax.swing.JButton();
         logBut = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         lupaBut = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -163,6 +169,16 @@ public class Home extends JFrame {
             }
         });
 
+        jButton14.setBackground(new java.awt.Color(215, 253, 236));
+        jButton14.setFont(new java.awt.Font("Swis721 BT", 1, 14)); // NOI18N
+        jButton14.setText("SERVIÇOS");
+        jButton14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(24, 119, 242), 3));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -172,10 +188,11 @@ public class Home extends JFrame {
                 .addComponent(jLabel1)
                 .addGap(22, 22, 22))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logBut, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cadBut, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(logBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(cadBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -189,7 +206,9 @@ public class Home extends JFrame {
                 .addComponent(logBut)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadBut)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton14)
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 240, 650));
@@ -373,6 +392,11 @@ public class Home extends JFrame {
 
         carriBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/carrinho.png"))); // NOI18N
         carriBut.setEnabled(false);
+        carriBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carriButActionPerformed(evt);
+            }
+        });
         jPanel2.add(carriBut, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,6 +425,7 @@ public class Home extends JFrame {
         dispose();
         Home home = new Home();
         home.setVisible(true);
+        home.setServico(servico);
     }//GEN-LAST:event_sairButActionPerformed
 
     private void cadButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadButActionPerformed
@@ -436,12 +461,12 @@ public class Home extends JFrame {
         
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(0));
+            prod1 = new ProdVenda(produtos.get(0), this);
         } else {
-            prod1 = new ProdVenda(results.get(0));
+            prod1 = new ProdVenda(results.get(0), this);
         }
 
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -450,11 +475,11 @@ public class Home extends JFrame {
         
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(1));
+            prod1 = new ProdVenda(produtos.get(1), this);
         } else {
-            prod1 = new ProdVenda(results.get(1));
+            prod1 = new ProdVenda(results.get(1),this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -462,11 +487,11 @@ public class Home extends JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(2));
+            prod1 = new ProdVenda(produtos.get(2), this);
         } else {
-            prod1 = new ProdVenda(results.get(2));
+            prod1 = new ProdVenda(results.get(2), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -474,11 +499,11 @@ public class Home extends JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(3));
+            prod1 = new ProdVenda(produtos.get(3),this);
         } else {
-            prod1 = new ProdVenda(results.get(3));
+            prod1 = new ProdVenda(results.get(3), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -486,11 +511,11 @@ public class Home extends JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(4));
+            prod1 = new ProdVenda(produtos.get(4), this);
         } else {
-            prod1 = new ProdVenda(results.get(4));
+            prod1 = new ProdVenda(results.get(4), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -498,11 +523,11 @@ public class Home extends JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(5));
+            prod1 = new ProdVenda(produtos.get(5), this);
         } else {
-            prod1 = new ProdVenda(results.get(5));
+            prod1 = new ProdVenda(results.get(5), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -510,11 +535,11 @@ public class Home extends JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(6));
+            prod1 = new ProdVenda(produtos.get(6), this);
         } else {
-            prod1 = new ProdVenda(results.get(6));
+            prod1 = new ProdVenda(results.get(6), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -522,11 +547,11 @@ public class Home extends JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(7));
+            prod1 = new ProdVenda(produtos.get(7), this);
         } else {
-            prod1 = new ProdVenda(results.get(7));
+            prod1 = new ProdVenda(results.get(7), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -534,11 +559,11 @@ public class Home extends JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(8));
+            prod1 = new ProdVenda(produtos.get(8), this);
         } else {
-            prod1 = new ProdVenda(results.get(8));
+            prod1 = new ProdVenda(results.get(8), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -546,11 +571,11 @@ public class Home extends JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(9));
+            prod1 = new ProdVenda(produtos.get(9), this);
         } else {
-            prod1 = new ProdVenda(results.get(9));
+            prod1 = new ProdVenda(results.get(9), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -558,11 +583,11 @@ public class Home extends JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(10));
+            prod1 = new ProdVenda(produtos.get(10), this);
         } else {
-            prod1 = new ProdVenda(results.get(10));
+            prod1 = new ProdVenda(results.get(10), this);
         }
-        prod1.setHome(this);
+       
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -570,16 +595,57 @@ public class Home extends JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         ProdVenda prod1;
         if (!busca) {
-            prod1 = new ProdVenda(produtos.get(11));
+            prod1 = new ProdVenda(produtos.get(11), this);
         } else {
-            prod1 = new ProdVenda(results.get(11));
+            prod1 = new ProdVenda(results.get(11), this);
         }
-        prod1.setHome(this);
+        
         prod1.setUsuario(usuario);
         prod1.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        carregaHome();
+        
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void carriButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carriButActionPerformed
+        Carrinho carrinho = new Carrinho(Lista);
+        carrinho.setHome(this);
+        System.out.println("numero de itens: " + carrinho.getLista().size());
+        for(Produto a : carrinho.getLista()){
+            System.out.println("produto: " + a.getNome());
+        }
+        
+        /*for(Produto p : carrinho.getLista()){
+           
+            carrinho.jTable1.addRow(new Object[]{p.getNome(),p.getPreco()});
+        }*/
+        
+        carrinho.setVisible(true);
+    }//GEN-LAST:event_carriButActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        if(usuario == null || usuario.getPriv() == 2 ){
+            JOptionPane.showMessageDialog(this, "Voce nao tem acesso a esta area");
+        }
+        else if (usuario.getPriv() == 1 || usuario.getPriv() == 0)
+        {
+            TelaServico telaServ = new TelaServico(usuario, this);
+            telaServ.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    public void atualizarBemVindo(Usuario usuario) {
+        jLabel2.setText("Bem-vindo, " + usuario.getNome() + "!");
+        remove(logBut);
+        if (priv != 0) {
+            remove(cadBut);
+        }
+
+    }
+    
+    protected void carregaHome(){
         if(busca){
            busca = false;
         }
@@ -592,15 +658,10 @@ public class Home extends JFrame {
             Home home = new Home(usuario);
             home.setVisible(true);
         }
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }
 
-    public void atualizarBemVindo(Usuario usuario) {
-        jLabel2.setText("Bem-vindo, " + usuario.getNome() + "!");
-        remove(logBut);
-        if (priv != 0) {
-            remove(cadBut);
-        }
-
+    public static void setServico(List<Servico> servico) {
+        Home.servico = servico;
     }
 
     private void verificaPrivilegios() {
@@ -734,6 +795,7 @@ public class Home extends JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

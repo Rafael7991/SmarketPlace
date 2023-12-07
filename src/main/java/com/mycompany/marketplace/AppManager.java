@@ -12,7 +12,13 @@ public class AppManager {
         usuarios = new ArrayList<>();
         Master master = new Master("admin", "admin");
         master.setNome("administrador");
+        Cliente cliente = new Cliente("c","c");
+        cliente.setNome("cliente");
+        Filiada filiada = new Filiada("a","a");
+        filiada.setNome("Regina");
         usuarios.add(master);
+        usuarios.add(cliente);
+        usuarios.add(filiada);
     }
 
     public static AppManager getInstance() {
