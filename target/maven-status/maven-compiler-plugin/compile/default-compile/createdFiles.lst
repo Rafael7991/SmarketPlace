@@ -5,7 +5,9 @@ com\mycompany\marketplace\Filiada.class
 com\mycompany\marketplace\Cadastro.class
 com\mycompany\marketplace\Usuario.class
 com\mycompany\marketplace\Cadastro$2.class
+com\mycompany\marketplace\Carrinho$DadosCompra.class
 com\mycompany\marketplace\Pedido.class
 com\mycompany\marketplace\Cliente.class
 com\mycompany\marketplace\Produto.class
 com\mycompany\marketplace\AppManager.class
+com\mycompany\marketplace\Carrinho$InformacoesProduto.class

@@ -80,6 +80,10 @@ public class Home extends JFrame {
 
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     public List<Produto> getLista() {
         return Lista;
     }
@@ -612,16 +616,6 @@ public class Home extends JFrame {
     private void carriButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carriButActionPerformed
         Carrinho carrinho = new Carrinho(Lista);
         carrinho.setHome(this);
-        System.out.println("numero de itens: " + carrinho.getLista().size());
-        for(Produto a : carrinho.getLista()){
-            System.out.println("produto: " + a.getNome());
-        }
-        
-        /*for(Produto p : carrinho.getLista()){
-           
-            carrinho.jTable1.addRow(new Object[]{p.getNome(),p.getPreco()});
-        }*/
-        
         carrinho.setVisible(true);
     }//GEN-LAST:event_carriButActionPerformed
 

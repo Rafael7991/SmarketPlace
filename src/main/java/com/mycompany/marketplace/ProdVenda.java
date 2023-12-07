@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -29,13 +31,12 @@ public class ProdVenda extends javax.swing.JFrame {
         this.home = home;
         if (home.getLista() == null) {
             pedido = new Pedido(usuario, LocalDateTime.now());
-            
+
         }
         jLabel1.setText(produto.getNome());
         jLabel2.setText(String.format("%.2f", produto.getPreco()));
 
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -120,13 +121,13 @@ public class ProdVenda extends javax.swing.JFrame {
 
             if (opcao == JOptionPane.YES_OPTION) {
 
-               // pedido.Carrinho.add(produto);
+                // pedido.Carrinho.add(produto);
                 home.getLista().add(produto);
                 home.verificaCarrinho(pedido);
-                for(Produto a : home.getLista()){
-                     System.out.println("produto: " + a.getNome());
+                for (Produto a : home.getLista()) {
+                    System.out.println("produto: " + a.getNome());
                 }
-               
+
                 //JOptionPane.showMessageDialog(null, "Os dados estão corretos!");
                 this.dispose();
             } else if (opcao == JOptionPane.NO_OPTION) {
@@ -155,6 +156,8 @@ public class ProdVenda extends javax.swing.JFrame {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    
 
     public void main(String args[]) {
 

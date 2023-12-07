@@ -35,12 +35,6 @@ public class AppManager {
     public void adicionarUsuario(Usuario usuario) {
         usuarios.add(usuario);
 
-        for (Usuario a : usuarios) {
-
-            System.out.println("username: " + a.getUserName());
-            System.out.println("senha: " + a.getSenha());
-
-        }
     }
 
     public Usuario autenticarUsuario(String userName, String senha) {
